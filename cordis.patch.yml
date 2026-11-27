@@ -1,0 +1,5 @@
+# Long-novel workbench bundle: four model-facing tools plus one runtime skill.
+# novel_init scaffolds a project; novel_status, novel_check, and novel_brief read it.
+- insert:
+    - id: tool-novel
+      name: '@sweetpoints/dsh-novel-workbench'

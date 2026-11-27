@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Novel workbench",
+    "description": "A gated workflow for long novels. novel_init scaffolds a fixed project tree (premise, world, style, characters, full-book structure, volume plan, chapter outline, chapter ledger, foreshadowing ledger, revision checklist). novel_status reports progress and the next chapter. novel_check audits chapter-number gaps, written chapters without an outline row, ledger rows that disagree with chapter files, unanswered chapter hooks, overdue or unplanned foreshadows, word-count drift, and characters absent for too long. novel_brief builds one bounded chapter brief from the outline row, the previous two chapters, the POV characters' current state, due foreshadows, world taboos, and style constraints. A loadable novel-workflow skill documents the ten stages, five rules, and three revision passes. novel_init creates files under the session working directory (or a subdirectory) with your account's permissions and is not sandboxed; the other three tools are read-only. Disabling this bundle removes the tools and the skill; generated novel projects are left untouched."
+  }
+}
