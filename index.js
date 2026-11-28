@@ -254,8 +254,8 @@ export function createTools(ctx) {
         DATE: today(),
         VOLUMES: String(volumes),
         CHAPTER_WORDS: String(chapterWords),
-        PROTAGONIST: '（待定）',
-        ANTAGONIST: '（待定）',
+        PROTAGONIST: '',
+        ANTAGONIST: '',
       })
       return {
         dir,
