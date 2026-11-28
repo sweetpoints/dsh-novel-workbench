@@ -10,7 +10,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 import { scaffoldNovel } from '../index.js'
-import { audit, buildBrief, loadProject, LAYOUT } from '../lib/project.js'
+import { audit, buildBrief, impactChapters, loadProject, LAYOUT } from '../lib/project.js'
 
 const root = await mkdtemp(join(tmpdir(), 'novel-workbench-test-'))
 let failures = 0
@@ -36,7 +36,7 @@ try {
       PROTAGONIST: '林岸',
       ANTAGONIST: '周岐',
     })
-    assert.equal(created.length, 15)
+    assert.equal(created.length, 19)
     for (const relative of created) {
       assert.ok(existsSync(join(root, relative)), `missing ${relative}`)
     }
@@ -60,6 +60,10 @@ try {
       '| F002 | 证人手上的疤 | 表 | 2 |  |  | 证人 | 未收 |',
       '',
     ].join('\n'))
+    await appendFile(join(root, LAYOUT.decisions), [
+      '| 2026-11-28 | D001 | 视角锁定主角 | 双 POV 交替 | 读者必须与他同步才知道借条存在 | 1-2 | 生效 |',
+      '',
+    ].join('\n'))
     const text = '林岸站在雨里，借条在指间碎成两半。\n'.repeat(12)
     await writeFile(join(root, LAYOUT.chapters, '第001章.md'), text, 'utf8')
   })
@@ -76,6 +80,8 @@ try {
     assert.equal(project.foreshadows.length, 2)
     assert.equal(project.foreshadows[0].plan, 1)
     assert.equal(project.characters.length, 2)
+    assert.equal(project.decisions.length, 1)
+    assert.ok(project.decisions[0].impact.has(2), 'range 1-2 should cover chapter 2')
     assert.equal(project.missing.length, 0)
   })
 
@@ -110,6 +116,8 @@ try {
     assert.ok(text.includes('拿回借条'))
     assert.ok(text.includes('林岸'))
     assert.ok(text.includes('F001'))
+    assert.ok(text.includes('D001'), 'brief should carry the decision that affects the chapter')
+    assert.ok(text.includes('决策记录'))
     assert.ok(text.length <= 3500 + 40)
   })
 
@@ -129,6 +137,7 @@ try {
     assert.equal(project.outline[1].turn, '证人翻供')
     assert.equal(project.outline[1].answer, '')
     assert.equal(project.outline[1].target, 1200)
+    assert.deepEqual([...impactChapters('第 3–5 章')].sort((a, b) => a - b), [3, 4, 5])
   })
 } finally {
   await rm(root, { recursive: true, force: true })

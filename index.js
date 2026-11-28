@@ -203,7 +203,7 @@ function renderBrief(value) {
 export function createTools(ctx) {
   const initTool = {
     name: 'novel_init',
-    description: 'Scaffold a long-novel project: a fixed Markdown tree for premise, world, style, characters, outline, volume plan, chapter ledger, foreshadowing ledger, and revision checklist. Refuses a non-empty directory. Then fill 00-立项.md, add chapter-outline rows, and call novel_brief.',
+    description: 'Scaffold a long-novel project: a fixed Markdown tree for premise, world, style, characters, outline, volume plan, chapter ledger, foreshadowing ledger, revision checklist, and a working folder (decision log, material, drafts, audit reports). Refuses a non-empty directory. Then fill 00-立项.md, add chapter-outline rows, and call novel_brief.',
     parameters: {
       type: 'object',
       additionalProperties: false,
