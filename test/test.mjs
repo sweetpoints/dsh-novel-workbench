@@ -142,6 +142,7 @@ try {
     assert.ok(text.includes('借条与身世'), 'brief should carry the volume conflict')
     assert.ok(text.includes('### 场次细纲'), 'brief should inline the per-chapter fine outline')
     assert.ok(text.includes('雨夜门口'), 'fine outline content missing')
+    assert.ok(!text.includes('三句话里第三句'), 'template notes leaked into the brief')
     assert.ok(text.includes('决策记录'))
     assert.ok(text.length <= 3500 + 40)
   })
