@@ -1,6 +1,6 @@
 {
   "name": "@sweetpoints/dsh-novel-workbench",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "private": true,
   "description": "Long-novel workbench for DeepSeek Harness: scaffold a project, audit continuity, and build a bounded chapter brief with four tools and a loadable skill.",
   "author": "sweetpoints",
