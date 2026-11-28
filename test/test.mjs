@@ -36,7 +36,7 @@ try {
       PROTAGONIST: '林岸',
       ANTAGONIST: '周岐',
     })
-    assert.equal(created.length, 19)
+    assert.equal(created.length, 20)
     for (const relative of created) {
       assert.ok(existsSync(join(root, relative)), `missing ${relative}`)
     }
@@ -60,6 +60,26 @@ try {
       '| F002 | 证人手上的疤 | 表 | 2 |  |  | 证人 | 未收 |',
       '',
     ].join('\n'))
+    const briefPath = join(root, LAYOUT.brief)
+    const premise = (await import('node:fs/promises')).readFile(briefPath, 'utf8')
+    const premiseText = await premise
+    await (await import('node:fs/promises')).writeFile(
+      briefPath,
+      premiseText.replace('## 一句话故事（≤15 字，不含人名）', '## 一句话故事（≤15 字，不含人名）\n\n一个记者追查父亲死因。'),
+      'utf8',
+    )
+    const volumePath = join(root, '02-结构/卷纲.md')
+    const volumeText = await (await import('node:fs/promises')).readFile(volumePath, 'utf8')
+    await (await import('node:fs/promises')).writeFile(
+      volumePath,
+      volumeText.replace('| 1 |  |  |  |  |', '| 1 | 1-12 | 借条与身世 | 拿到借条 | 证人失踪 |'),
+      'utf8',
+    )
+    await (await import('node:fs/promises')).writeFile(
+      join(root, '02-结构/细纲/第001章.md'),
+      '## 场次\n\n1. 雨夜门口：林岸要借条，被赶走。\n',
+      'utf8',
+    )
     await appendFile(join(root, LAYOUT.decisions), [
       '| 2026-11-28 | D001 | 视角锁定主角 | 双 POV 交替 | 读者必须与他同步才知道借条存在 | 1-2 | 生效 |',
       '',
@@ -117,6 +137,11 @@ try {
     assert.ok(text.includes('林岸'))
     assert.ok(text.includes('F001'))
     assert.ok(text.includes('D001'), 'brief should carry the decision that affects the chapter')
+    assert.ok(text.includes('## 上游约束'), 'brief should carry upstream constraints')
+    assert.ok(text.includes('一个记者追查父亲死因'), 'brief should carry the book premise')
+    assert.ok(text.includes('借条与身世'), 'brief should carry the volume conflict')
+    assert.ok(text.includes('### 场次细纲'), 'brief should inline the per-chapter fine outline')
+    assert.ok(text.includes('雨夜门口'), 'fine outline content missing')
     assert.ok(text.includes('决策记录'))
     assert.ok(text.length <= 3500 + 40)
   })

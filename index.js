@@ -375,14 +375,14 @@ export function createTools(ctx) {
 
   const briefTool = {
     name: 'novel_brief',
-    description: 'Build one bounded chapter brief from the project files: the chapter outline row, the decisions that affect this chapter, the previous two chapters\' summaries, the current state of the POV characters, foreshadows due within two chapters, world rules and taboos, and the style constraints. Use it before writing a chapter so the context is fixed-size instead of the whole manuscript.',
+    description: 'Build one bounded chapter brief from the project files: the upstream constraints (book premise, volume conflict), the chapter outline row plus its per-chapter fine outline when one exists, the decisions that affect this chapter, the previous two chapters\' summaries, the current state of the POV characters, foreshadows due within two chapters, world rules and taboos, and the style constraints. Use it before writing a chapter so the context is fixed-size instead of the whole manuscript.',
     parameters: {
       type: 'object',
       additionalProperties: false,
       properties: {
         dir: { type: 'string', description: '项目根目录，相对当前会话工作目录；省略时用当前工作目录。' },
         chapter: { type: 'integer', description: '章号，1–10000；省略时取当前已写最大章号 + 1。' },
-        maxChars: { type: 'integer', description: '上下文卡总长度上限（字符），800–12000，默认 3500。' },
+        maxChars: { type: 'integer', description: '上下文卡总长度上限（字符），800–12000，默认 4500。' },
       },
     },
     output: {
@@ -402,7 +402,7 @@ export function createTools(ctx) {
       if (!isRecord(args)) throw new Error('invalid arguments: expected an object')
       const dir = await projectDirectory(ctx, exec, optionalString(args, 'dir'))
       const requested = optionalInteger(args, 'chapter', 1, 10_000)
-      const maxChars = optionalInteger(args, 'maxChars', 800, 12_000) ?? 3500
+      const maxChars = optionalInteger(args, 'maxChars', 800, 12_000) ?? 4500
       const project = await loadProject(dir)
       const chapter = requested ?? project.current + 1
       const text = buildBrief(project, chapter, maxChars)
