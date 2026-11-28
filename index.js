@@ -375,7 +375,7 @@ export function createTools(ctx) {
 
   const briefTool = {
     name: 'novel_brief',
-    description: 'Build one bounded chapter brief from the project files: the chapter outline row, the previous two chapters\' summaries, the current state of the POV characters, foreshadows due within two chapters, world rules and taboos, and the style constraints. Use it before writing a chapter so the context is fixed-size instead of the whole manuscript.',
+    description: 'Build one bounded chapter brief from the project files: the chapter outline row, the decisions that affect this chapter, the previous two chapters\' summaries, the current state of the POV characters, foreshadows due within two chapters, world rules and taboos, and the style constraints. Use it before writing a chapter so the context is fixed-size instead of the whole manuscript.',
     parameters: {
       type: 'object',
       additionalProperties: false,
