@@ -13,7 +13,7 @@
 | `novel_check` | 连续性审计：章号缺口、正文缺细纲、总表不同步、钩子没回应、伏笔超期或无计划、字数偏差、人物失活。只读。 |
 | `novel_brief` | 生成某一章的定长上下文卡：章纲四节点、前情两章、在场人物当前状态、两章内到期伏笔、世界禁忌、文风约束。只读。 |
 
-外加技能 `novel-workflow`：十阶段、五条铁律、章级循环、伏笔三层、三轮修订。由模型按需加载。
+外加技能 `novel-workflow`：顶层只放五条铁律、章级循环（带完成判据）和章纲四节点；十阶段、连续性、修订三轮放进 `skill/reference/`，按需读取。
 
 ## 安装
 
@@ -99,6 +99,7 @@
 - [webnovel-author](https://github.com/sunfleeting-debug/webnovel-author)：单一真源、细纲门禁、定长上下文、双时间线、批评者不改稿。
 - [create-ai-novel-workspace](https://www.npmjs.com/package/create-ai-novel-workspace)：分层摘要、章节验收、防吃书。
 - 中文网文的分卷与章纲节点、伏笔分层、三轮修订，来自[塔塔写作](https://tataxiezuo.com/novel-outline-design/)的公开方法论。
+- 技能的组织方式参照 [mattpocock/skills](https://github.com/mattpocock/skills) 的 `writing-for-agents`：渐进披露、每步完成判据、删掉模型已知的 no-op、用 leading words 触发。
 
 ## 边界
 

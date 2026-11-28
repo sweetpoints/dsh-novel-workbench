@@ -431,10 +431,11 @@ function registerSkill(ctx) {
   try {
     skills.register({
       name: 'novel-workflow',
-      description: 'Long-novel workflow: premise → structure → rollng chapter outline → bounded brief → draft → trackers → audit → revision, with the gates that keep a long serial from collapsing.',
-      whenToUse: 'Use when planning, outlining, drafting, or revising a long novel (长篇/连载/系列) with the novel_* tools, or when the user asks how to keep a long manuscript consistent.',
+      description: 'Long-novel workflow for planning, drafting, and revising 长篇/连载/系列: rolling chapter outlines, a fixed-size chapter brief, continuity checks, and three revision passes.',
+      whenToUse: 'Use when planning, outlining, drafting, or revising a long novel, serial, or series, especially with the novel_* tools or when continuity across dozens of chapters matters.',
       content,
       source: 'custom',
+      resourceBase: { kind: 'directory', path: join(HERE, 'skill') },
     })
   } catch {
     // A duplicate name from another plugin must not disable the tools.

@@ -113,6 +113,17 @@ try {
     assert.ok(text.length <= 3500 + 40)
   })
 
+  await step('skill keeps its detail behind pointers', async () => {
+    const fs = await import('node:fs/promises')
+    const skillDir = join(import.meta.dirname, '..', 'skill')
+    const main = await fs.readFile(join(skillDir, 'novel-workflow.md'), 'utf8')
+    for (const pointer of ['reference/structure.md', 'reference/continuity.md', 'reference/revision.md']) {
+      assert.ok(main.includes(pointer), `missing pointer ${pointer}`)
+      assert.ok(existsSync(join(skillDir, pointer)), `missing file ${pointer}`)
+    }
+    assert.ok(main.length < 4000, `top-level skill grew to ${main.length} chars`)
+  })
+
   await step('parseTable tolerates padded cells and extra columns', async () => {
     const project = await loadProject(root)
     assert.equal(project.outline[1].turn, '证人翻供')
